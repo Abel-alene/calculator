@@ -154,3 +154,91 @@ class Calculator
         Console.WriteLine("Goodbye!");
     }
 }
+
+
+
+using System;
+
+class Program
+{
+    static string accountNumber = Guid.NewGuid().ToString().Substring(0, 8);
+    static string name, lastName, sex;
+    static int age;
+    static decimal balance = 0;
+
+    static void Main(string[] args)
+    {
+        RegisterUser();
+        ShowMenu();
+    }
+
+    static void RegisterUser()
+    {
+        Console.Write("Enter your First Name: ");
+        name = Console.ReadLine();
+        Console.Write("Enter your Last Name: ");
+        lastName = Console.ReadLine();
+        Console.Write("Enter your Sex (M/F): ");
+        sex = Console.ReadLine();
+        Console.Write("Enter your Age: ");
+        age = int.Parse(Console.ReadLine());
+
+        Console.WriteLine($"\nUser Registered Successfully!");
+        Console.WriteLine($"Account Number: {accountNumber}\n");
+    }
+
+    static void ShowMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("1. Deposit");
+            Console.WriteLine("2. Withdraw");
+            Console.WriteLine("3. Check Balance");
+            Console.WriteLine("4. Exit");
+            Console.Write("Choose an option: ");
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Deposit();
+                    break;
+                case 2:
+                    Withdraw();
+                    break;
+                case 3:
+                    Console.WriteLine($"Your balance is: {balance}\n");
+                    break;
+                case 4:
+                    Console.WriteLine("Goodbye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice!\n");
+                    break;
+            }
+        }
+    }
+
+    static void Deposit()
+    {
+        Console.Write("Enter amount to deposit: ");
+        decimal amount = decimal.Parse(Console.ReadLine());
+        balance += amount;
+        Console.WriteLine($"Deposit successful! New balance: {balance}\n");
+    }
+
+    static void Withdraw()
+    {
+        Console.Write("Enter amount to withdraw: ");
+        decimal amount = decimal.Parse(Console.ReadLine());
+        if (amount > balance)
+        {
+            Console.WriteLine("Insufficient balance!\n");
+        }
+        else
+        {
+            balance -= amount;
+            Console.WriteLine($"Withdrawal successful! New balance: {balance}\n");
+        }
+    }
+}
